@@ -12,9 +12,9 @@ class Product extends Model
         'prod_name','prod_brand','prod_price','cat_id'
     ];
 
-    public function ProductCategory()
+    public function productCategory()
     {
-        return $this->hasMany(ProductCategory::class);
+        return $this->belongsTo(ProductCategory::class, 'cat_id', 'id');
     }
 
 }

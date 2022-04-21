@@ -15,8 +15,7 @@ class ProductCategoryController extends Controller
     public function index()
     {
         $cate=ProductCategory::all();
-        if($cate->isNotEmpty()){
-
+        if($cate !=null ){
             return response()->json([
                 "status"=>true,
                 "categories"=>$cate

@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function index()
     {
        //DB::table('products')->get();
-       $product=Product::all();
+       $product=Product::with('productCategory')->get();
        if($product != null){
             return response()->json([
                 'status'=>true,

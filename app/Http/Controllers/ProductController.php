@@ -64,7 +64,8 @@ class ProductController extends Controller
         //     'prod_brand'=>'required',
         //     'prod_price'=>'required'
         // ]);
-        if($validation){
+
+        if($validation->fails()){
             return response()->json([
                 'status'=>false,
                 'errors'=>$validation->errors()
@@ -76,23 +77,24 @@ class ProductController extends Controller
         $product->prod_brand=$request->prod_brand;
         $product->prod_price=$request->prod_price;
         $product->cat_id=$request->cat_id;
+
         if($product->save())
         {
             return response()->json([
-                  'status'=>true,
-                  'product'=>$product,
-                  'message'=>"Product Add has been successfull"
+                'status'=>true,
+                'product'=>$product,
+                'message'=>"Product Add has been successfull"
             ]);
         }
         else{
                 return response()->json([
-                  'status'=>false,
-                  'product'=>null,
+                'status'=>false,
+                'product'=>null,
                 
             ]);
         }
 
-        return response()->json('puduct data has been save');
+        return response()->json(['puduct data has been save']);
 
     }
 
@@ -104,7 +106,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product=Product::findorfail($id);
+        return response()->json($product);
     }
 
     /**
@@ -123,7 +126,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validation=$request->validate([
+        $request->validate([
             'prod_name'=>'required',
             'prod_brand'=>'required',
             'prod_price'=>'required'
@@ -147,7 +150,18 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product=Product::findorfail($id);
-        $product->delete();
-        return response()->json('pruduct data delete successfull');
+        if($product->delete()){
+            return response()->json([
+            'status'=>true,
+            'product' =>$product,
+            'message'=>'Data delete has been successfull'
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>false,
+                'product'=>null
+            ]);
+        }
     }
 }

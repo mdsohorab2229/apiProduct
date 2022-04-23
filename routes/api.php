@@ -15,10 +15,11 @@ use App\Http\Controllers\ProductController;
 |
 */
 // product controller
-Route::get('product/show',[ProductController::class, 'index']);
+Route::get('product/list',[ProductController::class, 'index']);
 Route::post('product/add',[ProductController::class, 'store']);
+Route::get('product/show/{id}',[ProductController::class, 'show']);
 Route::put('product/update/{id}',[ProductController::class, 'update']);
-Route::delete('product/delete/{id}',[ProductController::class, 'destroy']);
+Route::delete('product/delet/{id}',[ProductController::class, 'destroy']);
 
 //category controller
 Route::get('category/list',[ProductCategoryController::class, 'index']);

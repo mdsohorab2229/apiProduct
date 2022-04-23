@@ -48,7 +48,7 @@ class ProductCategoryController extends Controller
      */
     public function store(Request $request)
     { 
-        $validation=$request->validate([
+        $request->validate([
         'cat_name'=>'required',
         'description'=>'required|max:30',
         
